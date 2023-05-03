@@ -21,13 +21,20 @@ def main():
     rating.append(str(datetime.datetime.now())[11:19])
     rate = float(input("Between 1-5, how do you rate your mood?\n"))
     if rate >= 1 and rate <= 5:
-        rating.append(rate)
+        rating.append(int(rate))
     else:
         print("Invalid Rating. Try again.\n")
         main()
     rating.append(input("Any notes to add with this?\n"))
     mood_record(rating)
     os.system('cls')
+
+def view():
+    with open("mood_history.csv", 'r', newline ='') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            print(row)
+    file.close()
 
 working = True
 while working == True:
@@ -38,7 +45,7 @@ while working == True:
     elif select == "2":
         print ("feature not available yet\n")
     elif select == "3":
-        print ("feature not available yet\n")
+        view()
     elif select == "4":
         print ("feature not available yet\n")
     elif select == "5":
