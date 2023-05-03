@@ -44,6 +44,7 @@ def plot():
 
 working = True
 while working == True:
+    password = input("All data is encrypted using a specific key you choose. Please enter your key.\n")
     print ("Welcome to mooder. Select an option below.\n You can rate your mood:\n1. Now\n2. Another Time\n3. View Ratings\n4. Chart Ratings\n5. Exit\n6. Clear History\n")
     select = input("Select an option.\n")
     if select == "1":
