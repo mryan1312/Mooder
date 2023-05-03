@@ -1,12 +1,14 @@
 import csv                                                                          # This app will let a user record their mood rating 1-5 with notes, date, and time
 import os                                                                           # Intention is to be able to plot the records on charts to track mood ratings over time
 import datetime                                                                     # There is an option to clear data, perhaps future could add encryption and password protection.
+import pandas as pd
+import plotly.express as px
 
 def mood_record(rating):
     if os.path.isfile("mood_history.csv") == False:                                 # Check if file exists
         with open("mood_history.csv", 'w', newline='') as file:
             record = csv.writer(file)
-            record.writerow(["Date", "Time", "Rating", "Comment"])                  # Creating the file with headers
+            record.writerow(["Datetime", "Rating", "Comment"])                  # Creating the file with headers
         file.close()
     history = open("mood_history.csv", 'a', newline = '')                           # Opening the file and writing the new rating
     writehistory = csv.writer(history)
@@ -17,8 +19,7 @@ def main():
     rating = []
     os.system('cls')
     print("Hey! How are you doing?")
-    rating.append(str(datetime.datetime.now())[:10])                                # Just the date, then just the time
-    rating.append(str(datetime.datetime.now())[11:19])
+    rating.append(str(datetime.datetime.now()))
     rate = float(input("Between 1-5, how do you rate your mood?\n"))
     if rate >= 1 and rate <= 5:
         rating.append(int(rate))
@@ -30,11 +31,16 @@ def main():
     os.system('cls')
 
 def view():
-    with open("mood_history.csv", 'r', newline ='') as file:
+    with open("mood_history.csv", 'r', newline ='') as file:                        # Opens the history file and prints the table
         reader = csv.reader(file)
         for row in reader:
             print(row)
     file.close()
+
+def plot():
+    graph = pd.read_csv("mood_history.csv")
+    fig = px.line(graph, x = "Datetime", y = "Rating", text = "Comment", title ="Mood Change over Time")
+    fig.show()
 
 working = True
 while working == True:
@@ -47,7 +53,7 @@ while working == True:
     elif select == "3":
         view()
     elif select == "4":
-        print ("feature not available yet\n")
+        plot()
     elif select == "5":
         working = False
     elif select == "6":
