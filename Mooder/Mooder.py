@@ -8,8 +8,7 @@ def mood_record(rating):
     if os.path.isfile("mood_history.csv") == False:                                 # Check if file exists
         with open("mood_history.csv", 'w', newline='') as file:
             record = csv.writer(file)
-            record.writerow(["Datetime", "Rating", "Comment"])                  # Creating the file with headers
-        file.close()
+            record.writerow(["Datetime", "Rating", "Comment"])                      # Creating the file with headers
     history = open("mood_history.csv", 'a', newline = '')                           # Opening the file and writing the new rating
     writehistory = csv.writer(history)
     writehistory.writerow(rating)
